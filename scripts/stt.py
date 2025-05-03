@@ -1,28 +1,38 @@
-# example.py
+# transcriber.py
+
 import os
 from dotenv import load_dotenv
 from io import BytesIO
 import requests
 from elevenlabs.client import ElevenLabs
 
-load_dotenv()
+class ElevenLabsTranscriber:
+    def __init__(self, api_key=None):
+        load_dotenv()
+        self.client = ElevenLabs(
+            api_key=api_key or os.getenv("ELEVENLABS_API_KEY")
+        )
 
-client = ElevenLabs(
-  api_key=os.getenv("ELEVENLABS_API_KEY"),
-)
+    def transcribe_from_url(self, audio_url, language_code="eng"):
+        response = requests.get(audio_url)
+        if response.status_code != 200:
+            raise Exception(f"Failed to fetch audio from URL: {audio_url}")
+        audio_data = BytesIO(response.content)
 
-audio_url = (
-    "https://storage.googleapis.com/eleven-public-cdn/audio/marketing/nicole.mp3"
-)
-response = requests.get(audio_url)
-audio_data = BytesIO(response.content)
+        transcription = self.client.speech_to_text.convert(
+            file=audio_data,
+            model_id="scribe_v1",
+            tag_audio_events=True,
+            language_code=language_code,
+            diarize=True,
+        )
 
-transcription = client.speech_to_text.convert(
-    file=audio_data,
-    model_id="scribe_v1", # Model to use, for now only "scribe_v1" is supported
-    tag_audio_events=True, # Tag audio events like laughter, applause, etc.
-    language_code="eng", # Language of the audio file. If set to None, the model will detect the language automatically.
-    diarize=True, # Whether to annotate who is speaking
-)
+        return transcription.text
 
-print(transcription.text)
+
+# Example usage
+if __name__ == "__main__":
+    transcriber = ElevenLabsTranscriber()
+    url = "https://storage.googleapis.com/eleven-public-cdn/audio/marketing/nicole.mp3"
+    result = transcriber.transcribe_from_url(url)
+    print(result)
