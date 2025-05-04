@@ -70,6 +70,15 @@ wheels = [
 ]
 
 [[package]]
+name = "distro"
+version = "1.9.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/fc/f8/98eea607f65de6527f8a2e8885fc8015d3e6f5775df186e443e0964a11c3/distro-1.9.0.tar.gz", hash = "sha256:2fa77c6fd8940f116ee1d6b94a2f90b13b5ea8d019b98bc8bafdcabcdd9bdbed", size = 60722, upload_time = "2023-12-24T09:54:32.31Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl", hash = "sha256:7bffd925d65168f85027d8da9af6bddab658135b840670a223589bc0c8ef02b2", size = 20277, upload_time = "2023-12-24T09:54:30.421Z" },
+]
+
+[[package]]
 name = "elevenlabs"
 version = "1.57.0"
 source = { registry = "https://pypi.org/simple" }
@@ -130,6 +139,23 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/f1/70/7703c29685631f5a7590aa73f1f1d3fa9a380e654b86af429e0934a32f7d/idna-3.10.tar.gz", hash = "sha256:12f65c9b470abda6dc35cf8e63cc574b1c52b11df2c86030af0ac09b01b13ea9", size = 190490, upload_time = "2024-09-15T18:07:39.745Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/76/c6/c88e154df9c4e1a2a66ccf0005a88dfb2650c1dffb6f5ce603dfbd452ce3/idna-3.10-py3-none-any.whl", hash = "sha256:946d195a0d259cbba61165e88e65941f16e9b36ea6ddb97f00452bae8b1287d3", size = 70442, upload_time = "2024-09-15T18:07:37.964Z" },
+]
+
+[[package]]
+name = "llama-api-client"
+version = "0.1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "anyio" },
+    { name = "distro" },
+    { name = "httpx" },
+    { name = "pydantic" },
+    { name = "sniffio" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/2d/97/5eec017a827b85988d3194c42beb7b44a2c9d908b20f7876323c21f1709c/llama_api_client-0.1.0.tar.gz", hash = "sha256:9355217333db3e86dc9abcc2ac15dca877ecc3d02f97d6fc916ab882bd5489e8", size = 110170, upload_time = "2025-04-29T15:22:22.909Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/dc/f4/9d64aab5f02c76983268ffedbef091eb14ac3421c39f304e227f81dcb83a/llama_api_client-0.1.0-py3-none-any.whl", hash = "sha256:dfac5ca149ee6a7179bfc423dc11a2a30bdc2dafe57da4dbd33e1da3e7b4cc95", size = 82409, upload_time = "2025-04-29T15:22:21.438Z" },
 ]
 
 [[package]]
@@ -289,11 +315,13 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "elevenlabs" },
+    { name = "llama-api-client" },
     { name = "python-dotenv" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "elevenlabs", specifier = ">=1.57.0" },
+    { name = "llama-api-client", specifier = ">=0.1.0" },
     { name = "python-dotenv", specifier = ">=1.1.0" },
 ]
